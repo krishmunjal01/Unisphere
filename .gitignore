@@ -1,0 +1,76 @@
+# ==========================================
+# UniSphere Project Git Ignore Configuration
+# ==========================================
+
+# 1. Dependencies & Package Managers
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# 2. Production Build Artifacts & Caches
+dist/
+*/dist/
+dist-ssr/
+*/dist-ssr/
+build/
+*/build/
+out/
+.cache/
+*.tsbuildinfo
+
+# 3. Environment Secrets & Credentials (CRITICAL)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+
+# 4. Runtime Logs & Diagnostics
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 5. IDE & Code Editor Files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.fleet/
+
+# 6. Operating System Specific Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 7. Local Database Backups & Temporary Scratch Data
+*.tmp
+*.temp
+*.bak
+*.sql.bak
+*.dump
+scratch/
+.system_generated/
+.gemini/
+
+# 8. Internal Project Report Guide (Excluded from GitHub)
+PROJECT_REPORT_GUIDE.md
+*REPORT_GUIDE*.md
+*INTERNAL*.md
