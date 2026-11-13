@@ -202,7 +202,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({ user }) => {
                 >
                   {students.map(s => (
                     <option key={s.student_id} value={s.student_id}>
-                      {s.university_roll_no} - {s.full_name}
+                      {s.university_roll_no} - {s.full_name || `${s.first_name || ''} ${s.last_name || ''}`}
                     </option>
                   ))}
                 </select>
@@ -303,7 +303,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({ user }) => {
               >
                 {students.map(s => (
                   <option key={s.student_id} value={s.student_id}>
-                    {s.university_roll_no} - {s.full_name}
+                    {s.university_roll_no} - {s.full_name || `${s.first_name || ''} ${s.last_name || ''}`}
                   </option>
                 ))}
               </select>
@@ -353,7 +353,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({ user }) => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
-                      {transcripts.courses
+                      {(transcripts?.courses || [])
                         .filter((c: any) => c.semester_code === sem.semester_code)
                         .map((c: any) => (
                           <tr key={c.enrollment_id}>

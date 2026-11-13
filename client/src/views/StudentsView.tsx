@@ -88,11 +88,13 @@ export const StudentsView: React.FC<StudentsViewProps> = ({ user }) => {
     }
   };
 
-  const filtered = students.filter(s =>
-    s.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    s.university_roll_no.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    s.program_code.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtered = students.filter(s => {
+    const name = s.full_name || `${s.first_name || ''} ${s.last_name || ''}`;
+    const roll = s.university_roll_no || '';
+    const prog = s.program_code || s.program_name || '';
+    const term = searchTerm.toLowerCase();
+    return name.toLowerCase().includes(term) || roll.toLowerCase().includes(term) || prog.toLowerCase().includes(term);
+  });
 
   return (
     <div className="space-y-6">

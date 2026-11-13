@@ -4,6 +4,7 @@ import {
   FALLBACK_USERS, 
   FALLBACK_KPI, 
   FALLBACK_DEPARTMENT_STATS, 
+  FALLBACK_GRADE_DISTRIBUTION,
   FALLBACK_AUDIT_LOGS, 
   FALLBACK_STUDENTS, 
   FALLBACK_STUDENT_DETAILS, 
@@ -13,8 +14,13 @@ import {
   FALLBACK_COURSES, 
   FALLBACK_ATTENDANCE_SUMMARY, 
   FALLBACK_INVOICES, 
+  FALLBACK_DEFAULTERS,
   FALLBACK_PAYMENTS, 
+  FALLBACK_CLASSROOMS,
   FALLBACK_TIMETABLE, 
+  FALLBACK_EXAMS_COMPONENTS,
+  FALLBACK_EXAMS_MARKS,
+  FALLBACK_TRANSCRIPTS,
   FALLBACK_CTE_DATA, 
   FALLBACK_WINDOW_DATA 
 } from './fallbackData';
@@ -99,9 +105,7 @@ function getFallbackDataForEndpoint(endpoint: string, options: RequestInit = {})
   if (endpoint.startsWith('/analytics/kpi')) return FALLBACK_KPI;
   if (endpoint.startsWith('/analytics/department-stats')) return FALLBACK_DEPARTMENT_STATS;
   if (endpoint.startsWith('/analytics/audit-logs')) return FALLBACK_AUDIT_LOGS;
-  if (endpoint.startsWith('/analytics/grade-distribution')) return [
-    { grade: 'O', count: 4 }, { grade: 'A+', count: 8 }, { grade: 'A', count: 12 }, { grade: 'B+', count: 6 }, { grade: 'F', count: 1 }
-  ];
+  if (endpoint.startsWith('/analytics/grade-distribution')) return FALLBACK_GRADE_DISTRIBUTION;
 
   if (endpoint.startsWith('/students/')) {
     const sId = parseInt(endpoint.split('/')[2], 10) || 1;
@@ -114,17 +118,29 @@ function getFallbackDataForEndpoint(endpoint: string, options: RequestInit = {})
   if (endpoint.startsWith('/faculty')) return FALLBACK_FACULTY;
 
   if (endpoint.startsWith('/courses/offerings')) return FALLBACK_FACULTY_OFFERINGS;
+  if (endpoint.includes('/prerequisites')) return [
+    { required_prerequisite: 'CS201', prerequisite_title: 'Data Structures & Algorithms', credits: 4, min_grade_required: 'C', student_grade: 'O', is_cleared: true }
+  ];
   if (endpoint.startsWith('/courses')) return FALLBACK_COURSES;
 
   if (endpoint.startsWith('/attendance/summary')) return FALLBACK_ATTENDANCE_SUMMARY;
   if (endpoint.includes('/attendance') && endpoint.includes('/students')) return FALLBACK_STUDENTS;
   if (endpoint.startsWith('/attendance')) return { message: 'Attendance recorded successfully (Showcase Mode)' };
 
+  if (endpoint.startsWith('/exams/components')) return FALLBACK_EXAMS_COMPONENTS;
+  if (endpoint.startsWith('/exams/marks')) return FALLBACK_EXAMS_MARKS;
+  if (endpoint.startsWith('/exams/transcripts/')) {
+    const sId = parseInt(endpoint.split('/')[3], 10) || 1;
+    return FALLBACK_TRANSCRIPTS[sId] || FALLBACK_TRANSCRIPTS[1];
+  }
+  if (endpoint.startsWith('/exams/calculate-sgpa')) return { message: 'SGPA calculation procedure executed & results committed' };
+
   if (endpoint.startsWith('/fees/invoices')) return FALLBACK_INVOICES;
   if (endpoint.startsWith('/fees/payments')) return FALLBACK_PAYMENTS;
-  if (endpoint.startsWith('/fees/defaulters')) return FALLBACK_INVOICES.filter(i => i.status === 'PENDING');
+  if (endpoint.startsWith('/fees/defaulters')) return FALLBACK_DEFAULTERS;
   if (endpoint.startsWith('/fees/pay')) return { message: 'Transaction Committed: Payment verified against ledger', receiptNumber: 'RCP-2026-DEMO' };
 
+  if (endpoint.startsWith('/timetable/classrooms')) return FALLBACK_CLASSROOMS;
   if (endpoint.startsWith('/timetable')) return FALLBACK_TIMETABLE;
 
   if (endpoint.startsWith('/dbms-lab/recursive-cte')) return FALLBACK_CTE_DATA;

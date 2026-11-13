@@ -135,7 +135,7 @@ export const TimetableView: React.FC<TimetableViewProps> = ({ user }) => {
                     </span>
                   </td>
                   <td className="py-3 px-4 font-mono font-semibold text-slate-700">
-                    {slot.start_time.slice(0, 5)} - {slot.end_time.slice(0, 5)}
+                    {slot.start_time ? slot.start_time.slice(0, 5) : '09:00'} - {slot.end_time ? slot.end_time.slice(0, 5) : '10:30'}
                   </td>
                   <td className="py-3 px-4">
                     <span className="font-bold text-slate-900">{slot.course_code}</span>
@@ -150,7 +150,7 @@ export const TimetableView: React.FC<TimetableViewProps> = ({ user }) => {
                   <td className="py-3 px-4 text-slate-600 font-medium">{slot.instructor_name}</td>
                   <td className="py-3 px-4">
                     <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">
-                      {slot.room_type.replace('_', ' ')}
+                      {(slot.room_type || 'LECTURE_HALL').replace('_', ' ')}
                     </span>
                   </td>
                 </tr>

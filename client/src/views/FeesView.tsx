@@ -153,16 +153,16 @@ export const FeesView: React.FC<FeesViewProps> = ({ user }) => {
                       <div className="text-[10px] text-slate-400 font-mono">{inv.university_roll_no}</div>
                     </td>
                     <td className="py-3 px-4 font-sans text-slate-600 font-medium">{inv.semester_code}</td>
-                    <td className="py-3 px-4 text-right text-slate-500">₹{Number(inv.gross_amount).toLocaleString()}</td>
+                    <td className="py-3 px-4 text-right text-slate-500">₹{Number(inv.gross_amount || inv.net_payable || 0).toLocaleString()}</td>
                     <td className="py-3 px-4 text-right text-emerald-600 font-semibold">
-                      -₹{Number(inv.scholarship_deduction).toLocaleString()}
+                      -₹{Number(inv.scholarship_deduction || 0).toLocaleString()}
                     </td>
                     <td className="py-3 px-4 text-right font-bold text-slate-800">
-                      ₹{Number(inv.net_payable).toLocaleString()}
+                      ₹{Number(inv.net_payable || inv.gross_amount || 0).toLocaleString()}
                     </td>
                     <td className="py-3 px-4 text-right font-bold">
-                      <span className={Number(inv.balance_amount) > 0 ? 'text-rose-600' : 'text-slate-400'}>
-                        ₹{Number(inv.balance_amount).toLocaleString()}
+                      <span className={Number(inv.balance_amount || 0) > 0 ? 'text-rose-600' : 'text-slate-400'}>
+                        ₹{Number(inv.balance_amount || 0).toLocaleString()}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center font-sans">
@@ -229,7 +229,7 @@ export const FeesView: React.FC<FeesViewProps> = ({ user }) => {
                     <td className="py-3 px-4 font-sans font-semibold text-slate-800">{d.student_name}</td>
                     <td className="py-3 px-4 font-sans text-slate-600">{d.program_name}</td>
                     <td className="py-3 px-4 text-right font-bold text-rose-600">
-                      ₹{Number(d.balance_amount).toLocaleString()}
+                      ₹{Number(d.balance_amount || 0).toLocaleString()}
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span className="bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">

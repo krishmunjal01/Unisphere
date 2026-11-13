@@ -67,14 +67,14 @@ export const FacultyView: React.FC<FacultyViewProps> = ({ user }) => {
               {workload.map(w => (
                 <tr key={w.faculty_id} className="hover:bg-slate-50/70">
                   <td className="py-3 px-3 font-mono font-bold text-slate-900">{w.employee_code}</td>
-                  <td className="py-3 px-3 font-semibold text-slate-800">{w.faculty_name}</td>
+                  <td className="py-3 px-3 font-semibold text-slate-800">{w.faculty_name || w.full_name}</td>
                   <td className="py-3 px-3">
                     <span className="font-semibold text-slate-700">{w.department_code}</span>
                     <span className="text-[10px] text-slate-400 block">{w.department_name}</span>
                   </td>
                   <td className="py-3 px-3">
                     <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-medium">
-                      {w.designation.replace('_', ' ')}
+                      {(w.designation || 'FACULTY').replace('_', ' ')}
                     </span>
                   </td>
                   <td className="py-3 px-3 text-center font-mono font-bold text-slate-900">
@@ -103,8 +103,8 @@ export const FacultyView: React.FC<FacultyViewProps> = ({ user }) => {
                   <span className="text-[10px] font-mono font-semibold bg-slate-100 text-slate-800 px-2 py-0.5 rounded border border-slate-200">
                     {f.employee_code}
                   </span>
-                  <h3 className="text-base font-bold text-slate-900 mt-1.5">{f.full_name}</h3>
-                  <div className="text-xs text-slate-600 font-semibold">{f.designation.replace('_', ' ')}</div>
+                  <h3 className="text-base font-bold text-slate-900 mt-1.5">{f.full_name || `${f.first_name || ''} ${f.last_name || ''}`}</h3>
+                  <div className="text-xs text-slate-600 font-semibold">{(f.designation || 'PROFESSOR').replace('_', ' ')}</div>
                 </div>
                 <div className="text-right">
                   <span className="text-xs font-semibold text-slate-700">{f.department_name}</span>
@@ -115,11 +115,11 @@ export const FacultyView: React.FC<FacultyViewProps> = ({ user }) => {
               <div className="mt-4 pt-3 border-t border-slate-100 text-xs space-y-1.5 text-slate-600">
                 <div className="flex items-center gap-2">
                   <GraduationCap className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span className="truncate">{f.qualification}</span>
+                  <span className="truncate">{f.qualification || 'Doctor of Philosophy'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>Joined: {new Date(f.joining_date).toLocaleDateString()}</span>
+                  <span>Joined: {f.joining_date ? new Date(f.joining_date).toLocaleDateString() : 'August 2020'}</span>
                 </div>
               </div>
             </div>
